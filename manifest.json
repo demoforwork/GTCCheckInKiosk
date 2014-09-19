@@ -1,0 +1,23 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+  "manifest_version": 2,
+  "name":  "GTC Kiosk App",
+  "description":  "GTC Kiosk App",
+  "version": "1.0",
+  "minimum_chrome_version": "30",
+  "icons": {
+    "128": "128.png"
+  },
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "permissions": [
+    "power",
+    "videoCapture",
+    "webview"
+  ],
+  "kiosk_enabled": true
+}

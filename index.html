@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Check-in Point</title>
+        <link rel="stylesheet" type="text/css" href="/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="/styles/startup.css">
+        <link rel="stylesheet" type="text/css" href="/styles/flipper.css">
+
+        <script src="/scripts/lib/jquery-2.1.1.min.js"></script>
+        <script src="/scripts/lib/jquery.velocity.min.js"></script>
+        <script src="/scripts/settings.js"></script>
+
+        <!-- libraries -->
+        <script src="/scripts/lib/flipper.js"></script>
+        <script src="/scripts/lib/sandbox.js"></script>
+        <script src="/scripts/lib/stripe.js"></script>
+
+        <!-- qr code decoder -->
+        <script type="text/javascript" src="/scripts/lib/grid.js"></script>
+        <script type="text/javascript" src="/scripts/lib/version.js"></script>
+        <script type="text/javascript" src="/scripts/lib/detector.js"></script>
+        <script type="text/javascript" src="/scripts/lib/formatinf.js"></script>
+        <script type="text/javascript" src="/scripts/lib/errorlevel.js"></script>
+        <script type="text/javascript" src="/scripts/lib/bitmat.js"></script>
+        <script type="text/javascript" src="/scripts/lib/datablock.js"></script>
+        <script type="text/javascript" src="/scripts/lib/bmparser.js"></script>
+        <script type="text/javascript" src="/scripts/lib/datamask.js"></script>
+        <script type="text/javascript" src="/scripts/lib/rsdecoder.js"></script>
+        <script type="text/javascript" src="/scripts/lib/gf256poly.js"></script>
+        <script type="text/javascript" src="/scripts/lib/gf256.js"></script>
+        <script type="text/javascript" src="/scripts/lib/decoder.js"></script>
+        <script type="text/javascript" src="/scripts/lib/qrcode.js"></script>
+        <script type="text/javascript" src="/scripts/lib/findpat.js"></script>
+        <script type="text/javascript" src="/scripts/lib/alignpat.js"></script>
+        <script type="text/javascript" src="/scripts/lib/databr.js"></script>
+
+        <!-- utilities for managing google drive actions -->
+        <script src="/scripts/utils/spreadsheet.js"></script>
+        <script src="/scripts/utils/images.js"></script>
+        <script src="/scripts/utils/badge.js"></script>
+
+        <!-- object visitor -->
+        <script src="/scripts/objects/visitor.js"></script>
+
+        <!-- main controllers -->
+        <script src="/scripts/data.js"></script>
+        <script src="/scripts/main.js"></script>
+        <script src="/scripts/startup.js"></script>
+
+    </head>
+
+    <body>
+        <div id="flipper" class="flipper">
+            <div class="page" id="page-refresh">
+                <div class="page-container">
+                    <header class="blue"><h1>Welcome to GTC!</h1></header>
+                    <div class="content">
+                        <div class="btn-container">
+                            <div id="nextUserButton" class="btn blue blue800">Check-in now!<br/><small>If you have your QR code</small>
+                            </div><div id="registerButton" class="btn blue blue800 last">Register</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page" id="page-lookup">
+                <div class="page-container">
+                    <header class="blue"><h1>Scan your QR code</h1></header>
+                    <div class="content">
+                        <div id="search">
+                            <input type="text" id="item-search-query" placeholder="Scan the QR code using the webcam" disabled />
+                            <progress id="search-timer-progress" value="0" max="200"></progress>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page" id="search-result">
+                <div class="page-container">
+                    <header class="blue"><h1>Is that you?</h1></header>
+                    <div class="content">
+                        <div class="search-result blue blue800 halfbox">
+                            <div class="name"></div>
+                            <div class="email"></div>
+                            <div class="btn-container">
+                                <div class="btn small blue800 inversed-blue" id="yes">Yes</div>
+                                <div class="btn small blue800 inversed-blue last" id="no">No</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page" id="badge">
+                <div class="page-container">
+                    <header class="blue"><h1>Take a picture</h1></header>
+                    <div class="content">
+                        <div class="check-in-badge blue blue800 halfbox">
+                            <div class="name"></div>
+                            <div class="email"></div>
+                            <div class="company"></div>
+                            <div class="location"></div>
+                            <div class="picture"></div>
+                            <div class="btn-container">
+                                <div class="btn snap_button small inversed-blue blue800">Take a picture &amp; check-in!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page" id="register">
+                <div class="page-container">
+                    <header class="blue"><h1>Register for the GTC</h1></header>
+                    <div class="content">
+                        <div class="form blue blue800 halfbox">
+                            <input type="text" name="name" placeholder="Full name" class="input"/>
+                            <input type="text" name="email" placeholder="Email" class="input"/>
+                            <input type="text" name="company" placeholder="Company" class="input"/>
+                            <input type="text" name="location" placeholder="Location" class="input"/>
+                            <div class="picture">
+                            </div>
+                            <div class="btn-container">
+                                <div class="btn snap_register_button small inversed-blue blue800">Take picture &amp; register!</div>
+                                <div class="btn last small inversed-blue blue800 cancel_button">Cancel</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="overlay" class="overlay">
+            <div class="background"></div>
+            <div class="foreground">
+                <div class="foreground-container"></div>
+            </div>
+        </div>
+        <div class="hidden">
+            <div id="overlays">
+                <div id="overlay-error" class="overlay-content blue">
+                    <img class="image" src="/images/cancel.png" width="200" height="200" alt=""/>
+                    <div class="content">
+                        <p class="error">It appears you may have checked in already, if not please register.</p>
+                        <div class="actions">
+                            <div class="continue btn small inversed-blue">Register here</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="overlay-success" class="overlay-content">
+                    <div class="content">
+                        <p class="success">Thank you for checking in! Have fun during the conference!</p>
+                    </div>
+                </div>
+            </div>
+            <div id="modules">
+                <div class="loading-animation">
+                    <span id="bubble_1"></span>
+                    <span id="bubble_2"></span>
+                    <span id="bubble_3"></span>
+                </div>
+            </div>
+        </div>
+        <iframe id="sandbox-scripts" class="hidden" src="scripts/sandbox-scripts.html"></iframe>
+    </body>
+</html>
