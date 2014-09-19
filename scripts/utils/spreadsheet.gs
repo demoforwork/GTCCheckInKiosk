@@ -7,7 +7,7 @@
 //access to the app. Additionally, you will need to run it once in the browser 
 //to authorize the app access to your Google Drive spreadsheets.
 
-var checkin_col = 4; // column in which the checked in information are collected.
+var checkin_col = 5; // column in which the checked in information are collected.
 
 function doGet(event) {
     var response = {};
