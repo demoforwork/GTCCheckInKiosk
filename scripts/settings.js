@@ -16,7 +16,7 @@ settings.SPREADSHEET_MACRO_URL = 'https://script.google.com/macros/s/AKfycbyi97x
  */
 settings.IMAGES_MACRO_URL = 'https://script.google.com/macros/s/AKfycbx4yoeALCOViF7JZk5aDCwEahocAUqOai9Dn_MxHtzg6jup1Lqw/exec';
 
-settings.MAIL_MACRO_URL = 'https://script.google.com/macros/s/AKfycbygUjBC0PSpp2fmXGYpp3F0zG7Me3e9RrGz1mEMTHvmx0ddz1s/exec';
+settings.MAIL_MACRO_URL = 'https://script.google.com/macros/s/AKfycbwkpxnaWWUI2Yf0-vbuvBkbBj_BUpNICqw0fSFNz9F7IfdOycfn/exec';
 
 /**
  * prepares URL for get & post requests
