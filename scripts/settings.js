@@ -9,12 +9,14 @@ settings.SPREADSHEET_ID = '1u4UIHBOFMqIFEuFBwBlsQSQpM1Y4K4DRkowpKr_tjEQ';
 /**
  * The web app URL that spreadsheet.gs is deployed to
  */
-settings.SPREADSHEET_MACRO_URL  = 'https://script.google.com/macros/s/AKfycbyi97xNqhiDzeNQWblQBEhqY7VzUZIMAl9Z8-oSddm8pQeNDhg/exec'; // working
+settings.SPREADSHEET_MACRO_URL = 'https://script.google.com/macros/s/AKfycbyi97xNqhiDzeNQWblQBEhqY7VzUZIMAl9Z8-oSddm8pQeNDhg/exec';
 
 /**
  * The web app URL that images.gs is deployed to
  */
 settings.IMAGES_MACRO_URL = 'https://script.google.com/macros/s/AKfycbx4yoeALCOViF7JZk5aDCwEahocAUqOai9Dn_MxHtzg6jup1Lqw/exec';
+
+settings.MAIL_MACRO_URL = 'https://script.google.com/macros/s/AKfycbygUjBC0PSpp2fmXGYpp3F0zG7Me3e9RrGz1mEMTHvmx0ddz1s/exec';
 
 /**
  * prepares URL for get & post requests
@@ -44,5 +46,4 @@ settings.debug = true;
 
 settings.log = function (string) {
     if (settings.debug) console.log(string);
-}
-
+};

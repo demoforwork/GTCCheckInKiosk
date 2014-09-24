@@ -125,4 +125,26 @@
         xhr.send(); 
         settings.log("spreadsheet.update() exit");
     };
+
+    spreadsheet.sendEmail = function (row, callback, spreadsheetId) {
+        var params = { 
+            'spreadsheet_id': spreadsheetId,
+            'row': row
+        };
+        var url = settings.prepareURL(params, settings.MAIL_MACRO_URL);
+        $.ajax({
+            type: 'GET',
+            url: url
+        }).done(callback);
+    };
+    spreadsheet.sendEmail2 = function (email, callback) {
+        var params = { 
+            'email': email
+        };
+        var url = settings.prepareURL(params, settings.MAIL_MACRO_URL);
+        $.ajax({
+            type: 'GET',
+            url: url
+        }).done(callback);
+    };
 })(window, JSON);

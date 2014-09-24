@@ -55,8 +55,8 @@
                     <header class="blue"><h1>Welcome to GTC!</h1></header>
                     <div class="content">
                         <div class="btn-container">
-                            <div id="nextUserButton" class="btn blue blue800">Check-in now!<br/><small>If you have your QR code</small>
-                            </div><div id="registerButton" class="btn blue blue800 last">Register</div>
+                            <div id="nextUserButton" class="btn blue blue800">Check-in with QR code
+                            </div><div id="registerButton" class="btn blue blue800 last">Check-in without QR code</div>
                         </div>
                     </div>
                 </div>
@@ -99,6 +99,7 @@
                             <div class="picture"></div>
                             <div class="btn-container">
                                 <div class="btn snap_button small inversed-blue blue800">Take a picture &amp; check-in!</div>
+                                <div class="btn last small inversed-blue blue800 cancel_button">Cancel</div>
                             </div>
                         </div>
                     </div>
@@ -106,7 +107,7 @@
             </div>
             <div class="page" id="register">
                 <div class="page-container">
-                    <header class="blue"><h1>Register for the GTC</h1></header>
+                    <header class="blue"><h1>Check-in for the GTC</h1></header>
                     <div class="content">
                         <div class="form blue blue800 halfbox">
                             <input type="text" name="name" placeholder="Full name" class="input"/>
@@ -116,7 +117,7 @@
                             <div class="picture">
                             </div>
                             <div class="btn-container">
-                                <div class="btn snap_register_button small inversed-blue blue800">Take picture &amp; register!</div>
+                                <div class="btn snap_register_button small inversed-blue blue800">Take picture &amp; check-in!</div>
                                 <div class="btn last small inversed-blue blue800 cancel_button">Cancel</div>
                             </div>
                         </div>
@@ -136,9 +137,9 @@
                 <div id="overlay-error" class="overlay-content blue">
                     <img class="image" src="/images/cancel.png" width="200" height="200" alt=""/>
                     <div class="content">
-                        <p class="error">It appears you may have checked in already, if not please register.</p>
+                        <p class="error">It appears you may have checked in already, if not please check-in without QR code.</p>
                         <div class="actions">
-                            <div class="continue btn small inversed-blue">Register here</div>
+                            <div class="continue btn small inversed-blue">Check-in without QR code</div>
                         </div>
                     </div>
                 </div>

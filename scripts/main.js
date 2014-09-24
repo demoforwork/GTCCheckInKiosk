@@ -96,12 +96,17 @@ main.initialize = function() {
     });
 
     $("#register").on(flipper.Event.BEFORE_OPEN, function () {
+        $("#register .form input[name='name']").val("");
+        $("#register .form input[name='email']").val("");
+        $("#register .form input[name='location']").val("");
+        $("#register .form input[name='company']").val("");
         $("#register .picture").empty();
         main.createVideo($("#register .form .picture"), 550, 450);
         main.startVideo();
+        $("#register .form").fadeIn();
     });
 
-    $("#register .cancel_button").click(function () {
+    $(".cancel_button").click(function () {
         flipper.openPage("#page-refresh");
     });
     $("#register .snap_register_button").click(function () {
@@ -139,6 +144,7 @@ main.initialize = function() {
         data_sheet.push(company);
         data_sheet.push("TRUE");
         spreadsheet.appendRow(data_sheet, function() {
+            spreadsheet.sendEmail2(email, function () { console.log("done"); });
             console.log('tutaj');
         }, settings.SPREADSHEET_ID);
     });
@@ -168,9 +174,10 @@ main.initialize = function() {
 
     $("#search-result #yes").click(main.lookupClicked);
 
-    //Overlay Close Buttons
-    $('#overlay-error .continue').click(main.closeOverlay);
-    $('#overlay-success .continue').click(main.closeOverlaySuccess);
+    $(".continue").click(function () {
+        main.closeOverlay();
+        flipper.openPage("#register");
+    });
 
     flipper.openPage('#page-refresh');
     settings.log("main.initialize() exit");
@@ -288,7 +295,11 @@ main.checkIn = function (visitor, id) {
                 main.stopVideo();
 
                 images.pushImg(main.getBadgeCallback, datablob, v);
-                spreadsheet.update(v.id+1, settings.SPREADSHEET_ID);
+                spreadsheet.update(v.id+1, 
+                                   function () {
+                                        spreadsheet.sendEmail(v.id+1, function () { console.log("done");}, settings.SPREADSHEET_ID);
+                                   },
+                                   settings.SPREADSHEET_ID);
                 $("#badge .check-in-badge").fadeOut();
                 $("#canvas").remove();
                 main.clearBadge();
@@ -335,7 +346,6 @@ main.getBadgeCallback = function (e) {
  */
 main.closeOverlay = function() {
     flipper.closeOverlay();
-    flipper.openPage("#register");
 };
 
 main.closeOverlaySuccess = function() {
